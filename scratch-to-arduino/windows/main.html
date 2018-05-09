@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8">
+        <title>Scratch to Arduino (Windows)</title>
+        <meta name="description" content="Installing Arduino, s2a_fm and Scratch on Windows 8.1">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Scratch to Arduino Interface for Windows</h1>
+        <h2>Background</h2>
+        <p>Another <a href="http://djprojects.altervista.org/scratch-to-arduino/main.html">project</a> describes how the interface between a Scratch 2 program and an Arduino microcontroller can be built. However, that project is based on using a Linux operating system and many users will want to use Windows. This note describes the installation process to achieve the same result on Windows 8.1.</p>
+        <h2>Install the Base Software</h2>
+        <p>The base software consists of:</p>
+        <ul>
+            <li>The Arduino IDE that is used to write and upload 'sketches' to the microcontroller. A particular sketch (StandardFirmata) is used to make the interface work.</li>
+            <li>The Scratch 2 Offline Editor. It is also possible to use the online version through a browser, but the offline version does not require a network connection.</li>
+            <li>Python 2.7 or later (but not Python 3). The software that receives the Scratch http messages and interfaces with the Aruino sketch is written in Python 2.</li>
+            <li>The interface software, known as s2a_fm - Scratch to Arduino using Firmata, the standard sketch used in teh microcontroller. The s2a_fm software also requires a Python serial library (pySerial) and the Python library that interfaces to the Firmata sketch (PyMata).</li>
+        </ul>
+        <h3>Arduino IDE</h3>
+        <p><img src="images/ArduinoIDE.png" alt="Arduino IDE" style="float:right; box-shadow: 10px 10px 5px #888888; margin: 0px 0px 20px 20px"></img>The latest version of the Arduino IDE can be found at <a href="http://www.arduino.cc/en/Main/Software">http://www.arduino.cc/en/Main/Software</a>. Download the 'Windows Installer' option from the list on the right and run it. Connect the Arduino microcontroller (I used a UNO) to a usb port, start the IDE and look under Tools>Port to find the name of the usb port. This will be used later.</p>
+        <h3>Scratch 2</h3>
+        <p>Scratch 2 has been written in Adobe ActionScript, which means installing Adobe Air (which is free). Go to <a href="https://scratch.mit.edu/scratch2download/">https://scratch.mit.edu/scratch2download/</a> to install Adobe Air and the Scratch 2 Offline Editor. Just follow the instructions on the page.</p>
+        <h3>Python 2.7</h3>
+        <p>Download Python from <a href="http://python.org/">http://python.org/</a> (for example Windows x86-64 MSI installer) and run the executable to install, using the default location of C:Python27. You need to choose the option for current user, rather than for all users (which is the default). Then the installation puts an entry in the registry for python under HKEY_CURRENT_USER. Otherwise the installation of pySerial (see below) fails to find an entry in the registry for python! You then get a Python Command Line app in the Start menu if you want to use Python interactively.</p>
+        <h3>Python Serial Library</h3>
+        <p>Download pySerial from <a href="https://pypi.python.org/pypi/pyserial">https://pypi.python.org/pypi/pyserial</a>. Choose the pyserial-2.7.win32.exe version, download it and execute it. You can check that it has installed properly by opening the Python Command Line app and typing 'import serial' at the prompt. Simply getting a new prompt indicates that all is well.</p>
+        <h3>PyMata</h3>
+        <p>Open a command window, change the directory to C:\Python27\Scripts and enter 'easy_install-2.7.exe pymata'. When  it is done you can check that all is well by opening the Python Command Line app and entering 'import PyMata'. Success returns you immediately to the prompt. Easy Install (and Pip, which is another Python module installer, and is also part of the Python installation) refers to a repository of python packages and downloads the requested one.</p>
+        <h3>s2a_fm</h3>
+        <p>Download the zipped collection of s2a_fm files from <a href="https://github.com/MrYsLab/s2a_fm">https://github.com/MrYsLab/s2a_fm</a> using the 'Download ZIP' button on the right. Unpack the folder s2a_fm-master into the root directory. You can actually put it anywhere, but I found this to be a convenient place.</p>
+        <h2>Install the Rest</h2>
+        <h3>s2a_fm Reference Manual</h3>
+        <p>The manual for s2a_fm can be found in the form of a pdf file in c:\s2a_fm-master\documentation. The installation instructions provided in the manual assume that you are using Linux.</p>
+        <h3>Firmata Sketch</h3>
+        <p>Within the Arduino IDE, select the sketch File>Examples>Firmata>StandarFirmata, compile it (using the Verify button) and upload it to the microcontroller.</p>
+        <h3>Command File</h3>
+        <p>Create a .bat file called s2a_fm.bat containing the commands:</p>
+        <code>cd c:\s2a_fm-master</code><br>
+        <code>c:\Python27\python s2a_fm.py COM3</code><br>
+        <p>where COM3 is the name of the usb port (obtained from the Arduino IDE) into which your microcontroller has been plugged. Put the file somewhere convenient.</p>
+        <h2>Run the Interface</h2>
+        <p><img src="images/Terminal.png" alt="Arduino IDE" style="float:right; box-shadow: 10px 10px 5px #888888; margin: 0px 0px 20px 20px"></img>Plug in your microcontroller. Double click the .bat file to start s2a_fm.  A command window will open showing the output from s2a_fm.</p>
+        <p>Start the Scratch 2 Offline Editor. Open file c:\s2a_fm-master\ScratchFiles\ScratchProjects\s2a_fm_base.sb2 in Scratch. This file contains the extension blocks for communicating with the Arduino and can be used as the starting point for any new project. You will notice that s2a_fm recognises a program with the extension blocks.</p>
+        <p>When you want to shut everything down, firstly close Scratch then, in the command window, enter Ctrl+C to close s2a_fm and then y to end the batch file.</p>
+        <div style="font-size:70%; padding 50px">
+            <a href="http://djprojects.altervista.org/index.html">Return to Projects</a>
+            <p>&copy; David James 2015 Last updated: 2nd June 2015</p>
+        </div>
+
+    </body>
+</html>
