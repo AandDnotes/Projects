@@ -19,7 +19,7 @@
             <li>The interface software, known as s2a_fm - Scratch to Arduino using Firmata, the standard sketch used in teh microcontroller. The s2a_fm software also requires a Python serial library (pySerial) and the Python library that interfaces to the Firmata sketch (PyMata).</li>
         </ul>
         <h3>Arduino IDE</h3>
-        <p><img src="images/ArduinoIDE.png" alt="Arduino IDE" style="float:right; box-shadow: 10px 10px 5px #888888; margin: 0px 0px 20px 20px"></img>The latest version of the Arduino IDE can be found at <a href="http://www.arduino.cc/en/Main/Software">http://www.arduino.cc/en/Main/Software</a>. Download the 'Windows Installer' option from the list on the right and run it. Connect the Arduino microcontroller (I used a UNO) to a usb port, start the IDE and look under Tools>Port to find the name of the usb port. This will be used later.</p>
+        <p><img src="images/ArduinoIDE.png" alt="Arduino IDE" style="float:right; box-shadow: 10px 10px 5px #888888; margin: 0px 0px 20px 20px">The latest version of the Arduino IDE can be found at <a href="http://www.arduino.cc/en/Main/Software">http://www.arduino.cc/en/Main/Software</a>. Download the 'Windows Installer' option from the list on the right and run it. Connect the Arduino microcontroller (I used a UNO) to a usb port, start the IDE and look under Tools>Port to find the name of the usb port. This will be used later.</p>
         <h3>Scratch 2</h3>
         <p>Scratch 2 has been written in Adobe ActionScript, which means installing Adobe Air (which is free). Go to <a href="https://scratch.mit.edu/scratch2download/">https://scratch.mit.edu/scratch2download/</a> to install Adobe Air and the Scratch 2 Offline Editor. Just follow the instructions on the page.</p>
         <h3>Python 2.7</h3>
@@ -41,7 +41,7 @@
         <code>c:\Python27\python s2a_fm.py COM3</code><br>
         <p>where COM3 is the name of the usb port (obtained from the Arduino IDE) into which your microcontroller has been plugged. Put the file somewhere convenient.</p>
         <h2>Run the Interface</h2>
-        <p><img src="images/Terminal.png" alt="Arduino IDE" style="float:right; box-shadow: 10px 10px 5px #888888; margin: 0px 0px 20px 20px"></img>Plug in your microcontroller. Double click the .bat file to start s2a_fm.  A command window will open showing the output from s2a_fm.</p>
+        <p><img src="images/Terminal.png" alt="Arduino IDE" style="float:right; box-shadow: 10px 10px 5px #888888; margin: 0px 0px 20px 20px">Plug in your microcontroller. Double click the .bat file to start s2a_fm.  A command window will open showing the output from s2a_fm.</p>
         <p>Start the Scratch 2 Offline Editor. Open file c:\s2a_fm-master\ScratchFiles\ScratchProjects\s2a_fm_base.sb2 in Scratch. This file contains the extension blocks for communicating with the Arduino and can be used as the starting point for any new project. You will notice that s2a_fm recognises a program with the extension blocks.</p>
         <p>When you want to shut everything down, firstly close Scratch then, in the command window, enter Ctrl+C to close s2a_fm and then y to end the batch file.</p>
         <div style="font-size:70%; padding 50px">
