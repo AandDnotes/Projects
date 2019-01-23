@@ -1,33 +1,41 @@
 body {
     font-size: 12pt;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: "Comic Sans MS", sans-serif;
     font-weight: normal;
     font-style: normal;
     color: black;
-    background-color: white;
+    background-color: darkgrey;
     line-height: 1.2em;
-    margin-left: 8em;
-    margin-right: 2em;
-    background-image: url("images/spiral.png"); background-repeat: repeat-y;
-   }
+    margin-left: 0px;
+    margin-right: 20px;
+    }
 h1 {
-    font-size: 200%;
+    font-size: 250%;
     color: maroon;
     font-weight: bold;
     margin-top: 1.7em;
-    margin-bottom: 1.0em;
+    margin-bottom: 1.1em;
    }
 h2 {
     font-size: 150%;
     color: maroon;
     font-weight: bold;
     margin-top: 1.5em;
-    margin-bottom: 1.0em;
+    margin-bottom: 1.1em;
    }
-h3 {
-    font-size: 120%;
-    color: maroon;
-    font-weight: bold;
-    margin-top: 1.5em;
-    margin-bottom: 1.0em;
+div.spiral {
+    background-image: url("images/spiral.png");
+    background-repeat: repeat-y;
+}
+div.page {
+    position: relative;
+    background-color: ivory;
+    margin-left: 70px;
+    padding: 1px 50px 50px 50px;
+    width: 1000px;
+    box-shadow: 10px 10px 5px grey;
+}
+td {
+    padding: 10px;
+    vertical-align: text-top;
    }
