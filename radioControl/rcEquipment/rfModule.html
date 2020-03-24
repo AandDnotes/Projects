@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>RF Module</title>
+    <meta name="description" content="Radio Control">
+    <link rel="stylesheet" href="../style.css">
+  </head>
+  <body>
+    <div class="outer">
+      <img class="birds" src="images/birds.png">
+      <h1 class="title">Radio Controlled Aircraft</h1>
+      <div class="sticky">
+        <iframe class="toc" src="../toc.html"></iframe>
+      </div>
+      <div class="top">
+        <div class="content">
+          <h1>- RF Module</h1>
+        </div>
+      </div>
+      <div class="middle">
+        <div class="content">
+          <p>As noted on the <a href="rcDesign.html">RC Design</a> page, I chose to use the arteflex AWA24S module to provide 2.4GHz communication over an adequate range and with suitable immunity to interference with other flyers. The data sheet for this module can be found <a href="https://drive.google.com/folderview?id=0B9ffzlYSWjNkYWNhRUR3QzJGZzA&usp=sharing">here</a>.</p>
+          <p>The AWA24S uses the CYRF7936 RF chip from Cypress Semiconductor, the data sheet for which is in the same place. However, Cypress do not provide details of its operation and of the register usage. They want you to use their Programmable System on a Chip (PSoC) and so only provide an API for this platform. Luckily, the 7936 has the same register structure as its predecessor, the CYRF6936 and an earlier version of the data sheet for that module contains register details. I have posted that document in the same place.</p>
+          <p>This means that it was necessary to develop my own set of functions to perform the various communications operations. As I commented elsewhere, Dunc had already managed to get two CYRF6936 chips (inside his Unigen module) communicating and so that gave me confidence that it could be done. However, I was using an Arduino rather than a bare Atmega micro controller.</p>
+          <p>I started with an Arduino Uno and a single AWA24S on a breadboard, with the SPI connections. Then I wrote a test sketch that contained a number of case statements, switched on a character input via the serial monitor. These case statements tested various SPI operations, from simply reading the default value in a register, to transmitting a data packet and receiving it on another Arduino/AWA24S combination. When I reached the point of wanting to transmit and receive, I built two simple dipole antennae (see the <a href="antennae.html">Antennae page</a> for more details). The Arduino sketch can be found in the <a href="https://drive.google.com/folderview?id=0B9ffzlYSWjNkX3p0VVZTaGZCVXc&usp=sharing">Software</a> folder. In this way I was able to perform all the basic transmit and receive operations as one-off transactions, at least proving that I could make the CYRF7936 function, even if the devices were only six inches apart!</p>
+          <p>The Serial Peripheral Interface (SPI) is a simple, but neat means of communication. Basically, one device is the master (there can be as many slaves as you have signals to use for the slave select) and each device has three registers; a control register (SPCR), a status register (SPSR) and a data register (SPDR). When the master initiates a transaction, the contents of the two data registers are exchanged. The first transaction always contains a slave device register address. If the top bit is not set, the contents of that register are loaded into SPDR and the next transaction returns the value to the master. However, if the top bit is set then the next transaction contains a value from the master to be written into the register in the slave whose address was given in the first transaction. SPI uses synchronous communication and so there is a clock signal driven by the master device.  The Arduino SPI library functions hides this from the user, even though they are very simple. More details on SPI can be found <a href="http://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus">here</a>.</p>
+        </div>
+      </div>
+      <div class="bottom" style="clear: both; font-size:70%">
+        <div style="margin: 0px 20px 10px 20px">
+          <hr style="border-color: maroon">
+          <p style="float: left">&copy; David James 2020 Last updated: 21st May 2014</p>
+          <p style="float: right">Return to <a href="../index.html">Radio Controlled Aircraft</a></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

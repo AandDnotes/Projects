@@ -1,0 +1,112 @@
+html {
+    background: #c0a154 url("images/straw.tiff");
+    }
+body {
+    font-size: 12pt;
+    font-family: "Arial", cursive, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    color: #3c3c3c;
+    line-height: 1.2em;
+   }
+div.outer {
+   margin: auto;
+   width: 900px;
+   position: relative;
+  }
+div.top {
+  margin-top: 80px;
+  /*margin-left: 50px;*/
+  background-color: rgb(237,227,200);
+  border-radius: 15px 15px 0px 0px;
+  width: 600px;
+  height: 40px;
+  box-shadow: 10px 10px 5px grey;
+  padding: 10px 0px 0px 0px;
+  }
+div.middle {
+  /*margin-left: 50px;*/
+  background-color: rgb(237,227,200);
+  width: 600px;
+  box-shadow: 10px 10px 5px grey;
+  padding: 10px 0px 10px 0px;
+  }
+div.bottom {
+  /*margin-left: 50px;*/
+  background-color: rgb(237,227,200);
+  border-radius: 0px 0px 15px 15px;
+  width: 600px; height: 60px;
+  box-shadow: 10px 10px 5px grey;
+  padding: 10px 0px 0px 0px;
+  }
+div.content {
+  margin: 0px 20px 0px 20px;
+  }
+div.sticky {
+  /* position: -webkit-sticky;  Safari,  but doesn't work with z-index */
+  position: relative;
+  top: 20px;
+  width: 250px;
+  float: right;
+  z-index: 0;
+  }
+iframe.toc {
+    border-style: none;
+    float: left;
+    width: 300px;
+    height: 500px;
+  }
+a.image {
+  cursor: zoom-in;
+  }
+img.birds {
+  position: absolute;
+  left: 500px;
+  z-index: -1;
+  }
+img.centre {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+  }
+h1.title {
+  font-size: 400%;
+  color: white;
+  font-weight: normal;
+  }
+h1 {
+    font-size: 200%;
+    color: maroon;
+    font-weight: normal;
+    /*margin-bottom: 0.5em;*/
+   }
+h2 {
+    font-size: 200%;
+    color: maroon;
+    font-weight: bold;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+   }
+h3 {
+    font-size: 150%;
+    color: maroon;
+    font-weight: normal;
+    /*margin-top: 1.0em;*/
+    margin-bottom: 0.5em;
+   }
+ul.toc {
+ font-size: 10pt;
+ margin-left: 0;
+ padding-left: 0;
+ list-style-position: outside;
+ list-style-type: none;
+ }
+ul.toc1 {
+ font-size: 10pt;
+ margin-left: 20px;
+ /*margin-top: 5px;*/
+ padding-left: 0;
+ list-style-position: outside;
+ list-style-type: circle;
+   }
