@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Raspberry Pi</title>
+    <meta name="description" content="Projects">
+    <link rel="stylesheet" href="style.css">
+  </head>
+    <body>
+      <div class="spiral">
+        <div class="page">
+          <h1>Raspberry Pi</h1>
+          <p><img class="r450" src="images/IMG_0958.jpg">In 2012 I bought a Rasperry Pi 1B and a case to put it in. It has a 700 MHz CPU and 512 MB of RAM. The latest version of the Pi (version 4) has a 1.5 GHz CPU and 1, 2 or 4 GB of Ram, so my Pi is not very powerful. The Pi 4 also has bluetooth and wi-fi interfaces and more USB ports. However, my interest is really in the principles, rather than the practicality.</p>
+          <p>In October 2020 Austin asked about the size of the first computers that I programmed. So I thought I would also show him the smallest. Although an Arduino is smaller, I think of those as micro-controllers, rather than as computers.</p>
+          <p>These notes document my endeavours. Things were slightly complicated beacuse the Pi uses a memory card (I'd bought two 16 GB cards when I bought the Pi), but it is only my MacBook Air that has a card reader. But the Air does not have an ethernet port, which is needed to connect to the Pi. So I did some operations on the Air and some on the iMac, which has an ethernet port. The Pi has both an ethernet port and a small USB port that is used to provide power.</p>
+          <p>The other main problem was that I don't have a screen and keyboard that I can plug into the Pi (via USB) and so I needed to set up the Pi in what is known as a 'headless' mode. I can then use VNC (Virtual Network Computing) to display the Pi's desktop on another computer and use that computer's keyboard and mouse. VNC needs a server on the Pi and a viewer on the iMac or Air.</p>
+          <p>So this is what I did.</p>
+          <ol>
+            <li>I thought that I'd start with the latest software image for the Pi, so I installed the Raspberry Pi Imager from the <a href="https://www.raspberrypi.org/downloads/">Pi site</a> on to MacBook Air. I used this to install the latest Pi image (RASPBERRY PI OS (32-BIT) released 2020-08-20) on to an SD card.</li>
+            <li>The Pi B typically takes 500 mA, although the recommended supply is 1.2 A, whereas the recommended supply for a Pi 4 is 3 A. So I was able to use a standard Apple USB power converter.</li>
+            <li>Following a <a href="https://www.raspberrypi.org/documentation/remote-access/ssh/unix.md">Raspberry Pi site page</a> I added a file called ssh (with no extension) to the boot partition on the SD card. This was done on the Air and should enable ssh on startup.</li>
+            <li>Connected the Pi to my iMac via an ethernet cable and powered on Pi.</li>
+            <li>Opened a terminal on the iMac and typed ‘ping raspberrypi.local’ to obtain the Pi’s IP address (which was 169.254.166.16).</li>
+            <li>Typed ‘ssh pi@169.254.166.16’ into terminal so as to connect to Pi. Typed ‘yes’ to the security question and then typed the password ‘raspberry’ so as to log on to the Pi. The default user name is 'pi'.</li>
+            <li>It seems that VNC needs to be enabled on the Pi. To do this I typed ‘sudo raspi-config’, which displayed a configuration application within the terminal window. Moved down to ‘Interfacing Options’ and selected it, then scrolled down and selected VNC > Yes.</li>
+            <li>Typed ‘vncserver’ into terminal to start VNC on Pi, which replied with ‘New desktop is raspberrypi:1 (169.254.166.16:1)’. All good so far.</li>
+            <li><img class="r350" src="images/shareScreen.png">Mac OS has a VNC server and client that is used when you view a remote screen through Finder. However, when I tried to use it, via the 'Go/Connect to server' menu, to connect to the Pi I got an error. It seems that the VNC clinet on Mac OS is not compatible with the VNC server on the Pi. So I installed <a href="https://www.realvnc.com/en/connect/download/viewer/">VNC Viewer</a> on the iMac. I started it and entered the IP address of the Pi and the Pi desktop appeared in a window on the iMac's screen.</li>
+            <li>It seems that to destroy a virtual desktop you need to type ‘vncserver -kill :<display-number>’ into a terminal.</li>
+          </ol>
+          <p><img class="l350" src="images/IMG_0942.jpg">So now I had this. I found that the VNC Viewer also had a file transfer facility. So I copied the example html files, that I had given to Rowan and Austin, to the Pi. You can see that displayed in the Pi's browser window.</p>
+          <p>I had expected to need to start the VNC server on the Pi each time I started it, but when I restarted the Pi the server was running.</p>
+          <p>The only remaining problem was that the Pi had no access to the internet.</p>
+          <p><img class="r450" src="images/connections.png">To achieve that I had to connect the Pi to the router, which is in the sitting room. Luckily I still have the tk-link modules that Brandon left behind. These modules plug into power sockets and essentially join two ethernet cables. So I plugged one into a socket in the sitting room and connected a cable to the router. The other tk-link module was plugged into a socket in the study, with the unit connected to the Pi. The red line on the diagram is the house electric wiring.</p>
+          <p><img class="l350" src="images/IMG_0949.jpg">I installed VNC Viewer on the MacBook Air, connected it to the Pi by entering its IP address and the Pi's desktop appeared on the Air. The Pi's browser was then able to open the BBC web site, even if it was very slow. So I could then control the Pi from either the iMac or the Air, with the latter anywhere in range of the wi-fi.</p>
+
+
+          <div style="clear: both; margin-left: 20px; font-size:70%; padding 50px">
+              <p>&copy; David James 2020   Last updated: 18th October 2020</p>
+          </div>
+        </div>
+      </div>
+    </body>
+</html>
