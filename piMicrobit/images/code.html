@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Pi-micro:bit</title>
+    <meta name="Raspberry Pi and micro:bit" content="Projects">
+    <link rel="stylesheet" href="../style.css">
+  </head>
+  <body>
+    <div class="spiral">
+      <div class="page">
+        <pre>
+        <code>
+          # dispay compass image, read heading from micro:bit and rotate image
+          # 12/02/2021
+
+          from tkinter import *
+          from tkinter import ttk
+          from PIL import ImageTk, Image
+          import time
+          import serial
+          import serial.tools.list_ports as list_ports
+
+          angle = 0
+          PID_MICROBIT = 516
+          VID_MICROBIT = 3368
+          TIMEOUT = 0.1
+
+          # look for micro:bit
+          def find_comport(pid, vid, baud):
+              #return a serial port
+              ser_port = serial.Serial(timeout=TIMEOUT)
+              ser_port.baudrate = baud
+              ports = list(list_ports.comports())
+              print('scanning ports')
+              for p in ports:
+                  print('port: {}'.format(p))
+                  try:
+                      print('pid: {} vid: {}'.format(p.pid, p.vid))
+                  except AttributeError:
+                      continue
+                  if (p.pid == pid) and (p.vid == vid):
+                      print('found target device pid: {} vid: {} port: {}'.format(
+                          p.pid, p.vid, p.device))
+                      ser_port.port = str(p.device)
+                      #print('ser_port = ',ser_port)
+                      return ser_port
+              return None
+
+          # function to load image, rotate it and display in label
+          def rotate():
+              global angle
+
+              if ser_micro:
+                  # read a line from the usb port
+                  #print('ser_micro in rotate = ', ser_micro)
+                  data = ser_micro.readline().decode('utf-8')
+                  #print('data in rotate = ', data)
+                  if data:
+                      # convert text to integer
+                      angle = 360 - int(data)
+
+              # open image, rotate it and place in label
+              pic = Image.open('images/arrow4.png')
+              pic = pic.rotate(angle)
+              image = ImageTk.PhotoImage(pic)
+              label['image'] = image
+              label.grid(column=1, row=1)
+              label.image = image # don't know why this line is necessary
+
+              # update value in numerical display
+              degrees = str(angle)
+              number.configure(text=degrees+' degrees')
+
+              if not ser_micro:
+                  angle = angle + 10
+                  if angle > 360:
+                      angle = 0
+
+              # create thread to run rotate() every 1000 milliseconds
+              label.after(500,rotate)
+
+          # Menu click handling functions for File menu
+          def exit():
+              root.destroy()
+
+          # make base window
+          root = Tk()
+          root.title("micro:bit Compass")
+          root.geometry("500x530")
+          root.resizable(0, 0) # prevent the window being resized
+          root.configure(bg='blue')
+
+          # create modified style for display of value
+          style = ttk.Style()
+          style.theme_use('alt') # change theme so that change works on OSX
+          style.configure('value.TLabel', foreground='blue', background='yellow')
+          style.configure('image.TLabel', background='blue')
+
+          # create menu bar
+          menubar = Menu(root)
+
+          # create file menu
+          file = Menu(menubar, tearoff = 0)
+          # create file menu commands
+          file.add_command(label = "Exit", command = exit)
+          # add file menu to menu bar
+          menubar.add_cascade(label = "File", menu = file)
+
+          # attach menubar to main window
+          root.config(menu = menubar)
+
+          #root window has 3 rows and 3 colums
+          root.columnconfigure(0, weight=1)
+          root.columnconfigure(1, weight=0)
+          root.columnconfigure(2, weight=1)
+          root.rowconfigure(0, weight=1)
+          root.rowconfigure(1, weight=0)
+          root.rowconfigure(2, weight=1)
+
+          # create triangular pointer on a canvas in top, middle cell
+          canvas = Canvas(root, width=100, height=50, background='blue', border=0,
+              highlightthickness=0)
+          canvas.grid(column=1, row=0, sticky=(S))
+          canvas.create_polygon(30, 10, 70, 10, 50, 50, fill='yellow', outline='')
+
+          # initialise usb port
+          print('looking for microbit')
+          ser_micro = find_comport(PID_MICROBIT, VID_MICROBIT, 115200)
+          if not ser_micro:
+              print('microbit not found')
+          else:
+              print('opening and monitoring microbit port')
+              ser_micro.open()
+              data = ser_micro.readline().decode('utf-8')
+              print('data = ', data)
+
+          # create lable for image
+          label = ttk.Label(root, style='image.TLabel')
+          # create numerical indicaton of position
+          number = ttk.Label(root, relief='sunken', style='value.TLabel')
+          number.grid(column=1, row=2)
+
+          # start rotation
+          rotate()
+
+          # start mainloop(), start GUI
+          root.mainloop()
+        </code>
+        </pre>
+      </div>
+    </div>
+  </body>
+</html>
