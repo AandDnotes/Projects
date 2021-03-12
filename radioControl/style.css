@@ -50,12 +50,34 @@ div.sticky {
   float: right;
   z-index: 0;
   }
+div.state {
+  position:absolute;
+  top:550px;
+  width: 310px;
+  right: 0px;
+  z-index: 0;
+  background-color: white;
+  box-shadow: 10px 10px 5px grey;
+  }
+div.code {
+  border: 2px solid grey;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 0px 20px 0px 20px;
+  background: #c0a154 url("images/straw.tiff")
+  }
 iframe.toc {
     border-style: none;
     float: left;
     width: 300px;
     height: 500px;
-  }
+    }
+iframe.state {
+    border:2px solid grey;
+    float: right;
+    width: 310px;
+    height: 430px;
+    }
 a.image {
   cursor: zoom-in;
   }
@@ -69,6 +91,10 @@ img.centre {
   margin-left: auto;
   margin-right: auto;
   width: 75%;
+  }
+img.state {
+  width: 290px;
+  float: right;
   }
 h1.title {
   font-size: 400%;

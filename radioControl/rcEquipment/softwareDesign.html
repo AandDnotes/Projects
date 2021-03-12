@@ -13,6 +13,9 @@
       <div class="sticky">
         <iframe class="toc" src="../toc.html"></iframe>
       </div>
+      <div class="state">
+        <iframe class="state" src="images/state.html"></iframe>
+      </div>
       <div class="top">
         <div class="content">
           <h1>- Software Design</h1>
@@ -20,15 +23,47 @@
       </div>
       <div class="middle">
         <div class="content">
-          <p>Details of the code used in the Arduino.
-          <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-          </p>
+          <p>From a software point of view there were two areas that needed to be investigated:
+            <ol>
+              <li>The SPI interface between the Arduino (a Pro Mini in this case) and the radio frequency module (an artaflex AWA24S).</li>
+              <li>The various operations of the radio frequency module.</li>
+            </ol>
+          Luckily there is an <a href="https://www.arduino.cc/en/Reference/SPI">Arduino library for SPI</a> communications. Also, the AWA24S uses the Cypress CYRF7936 2.4 GHz transceiver and Duncan Law (Dunc) used this module with an ATMega microcontroller, which is also used in the Arduino. In 2010 Dunc had <a href="https://sites.google.com/site/mrdunk/Home">documented his work</a>, including a library of functions for a range of commands for the CYRF6936, which seemed to have the same command set as the CYRF7936.</p>
+          <p>So, with a single Arduino and AWA24S I was able to produce some test sketches on the former to experiment with SPI. I read registers with known content and wrote into registers, reading them back to check that the write had worked. Then with two sets of Arduino/AW24S I was able to stage tests of the various RF commands.</p>
+          <p>My initial thought was that both the the ground station and the plane operations could be described as state models. My attempt is shown on the right and I produced several versions using this state model, implemented using switch/case commands.</p>
+          <p>However, it became clear that it was quite difficult to diagnose problems with this structure, so I implemented a simple sequential transmit/receive/wait structure. Until this time I had also used a timer interrupt to control each of the 20ms cycles. However, when I implemented the simple structure I also moved away from using timer interrupts, just looping until the cycle time had expired.</p>
+          <p>Both the ground station and the plane have the DSS pseudo number hard coded and binding between the two units is handled by initially setting the power low and waiting for the receipt of a good packet before setting the power high. Transmit and receive errors and timeouts are checked and error recovery implemented.</p>
+          <p>I ended up with the following for the ground station:</p>
+          <div class="code">
+            <p>
+              Include SPI and cyrf headers and the cyrf functions<br>
+              Initialise the SPI and AW24S<br>
+              Set the mode of Arduino pins
+            </p>
+            <p>
+              Read the serial input from the Arduino IDE to halt the operation so as to be able to start and stop transmission<br>
+              Read the control sticks<br>
+              Send a data packet to the plane<br>
+              Set the AWA24S to receive mode and wait for a reply packet to arrive<br>
+              Wait for the end of the cycle (set to 20 ms), then return to start of loop
+            </p>
+            <p>
+              Functions for:<br>
+              AWA24S initialisation<br>
+              Reading of the controller sticks<br>
+              Sending a packet to the plane<br>
+              Receiving a packet from the plane<br>
+              Handling errors<br>
+              Printing diagnostics
+            </p>
+          </div>
+          <p>A similar structure was used for the 'plane', but it starts by waiting for a packet from the ground station and drives the servos rather than reading the sticks.</p>
         </div>
       </div>
       <div class="bottom" style="clear: both; font-size:70%">
         <div style="margin: 0px 20px 10px 20px">
           <hr style="border-color: maroon">
-          <p style="float: left">&copy; David James 2020 Last updated: 2nd May 2014</p>
+          <p style="float: left">&copy; David James 2020 Last updated: 12th March 2021</p>
           <p style="float: right">Return to <a href="../index.html">Radio Controlled Aircraft</a></p>
         </div>
       </div>
