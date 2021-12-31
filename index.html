@@ -1,55 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Web Server</title>
-    <meta name="description" content="Projects">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="ad.png">
-  </head>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Projects</title>
+        <meta name="description" content="Projects">
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" href=“p32.png" sizes="32x32"/>
+        <link rel="icon" href=“p192.png" sizes="192x192"/>
+        <link rel="apple-touch-icon" href=“p180.png"/>
+    </head>
     <body>
-      <div class="spiral">
-        <div class="page">
-          <h1>Raspberry Pi Based Web Serveer</h1>
-          <p><img class="r450" src="images/IMG_0020.jpg">The Raspberry pi 1B that I bought in 2012 (it is now December 2021) only has a 700 MHz CPU and 512 MB of RAM, but I wondered if it would be powerful enough to act as a web server for my various sites. The pi is still connected to the router via a cable and the house electricity wiring. Initially I thought that, if I put my Journal on it, then I might be able to set up a search capability within my journal viewer page. However, it is really just an exercise, to find out what is involved in setting up a web server. My intent is to disable the capability when I have finished 'playing', since all my web pages are hosted on <a href="https://aanddnotes.github.io/WebPages/">Github</a>. At the moment, if I want to search files then I need to go into Github and use the search facilities there. Not very convenient, but it works.</p>
-          <p>To help satisfy my curiosity I did the following (the items marked with a &dagger; are intended to help secure the connection):</p>
-          <ul>
-            <li>Loaded the latest version of pi OS (5.10 30/10/2021) to a 16 GB memory card and added an empty file ‘ssh’ to root.</li>
-            <li>Followed the instructions on my <a href="../raspberryPi/index.html">Raspberry pi</a> page to get a pi desktop on the iMac using vnc.</li>
-            <li>Changed the user name and password on the Raspberry pi (defaults are pi and admin). &dagger;</li>
-            <ul>
-              <li>Disabled auto login (via desktop)</li>
-              <li>Set password for root (and pi) via ssh</li>
-              <li>Set 'permit root login' (via desktop)</li>
-              <li>Logged in as root via ssh</li>
-              <li>Changed the user name &dagger;</li>
-              <li>Changed the user password &dagger;</li>
-              <li>Renamed the home directory &dagger;</li>
-              <li>Disabled ssh login as root</li>
-              <li>Enabled auto login (via the desktop)</li>
-            </ul>
-            <li>Installed the lighttpd web server.</li>
-            <li>Installed the ufw firewall.</li>
-            <li>Opened ports 80 (http), 22 (ssh) and 5900 (vnc).</li>
-            <li>Enabled ufw. &dagger;</li>
-            <li>Within the router, set the Raspberry pi to a fixed internal IP address.</li>
-            <li>Set the router to forward external port 9080 to internal port 80 on the Raspberry pi. &dagger;</li>
-            <li>Registered a domain name and set up a dynamic DNS service.</li>
-          </ul>
-          <p>To change the user name and password I followed the instructions at <a href="https://raspberrytips.com/change-raspberry-pi-username/">https://raspberrytips.com/change-raspberry-pi-username/</a>.</p>
-          <p>Lightpd is reported as bing lightweight and fast. So I followed the instructions on <a href="https://pimylifeup.com/raspberry-pi-lighttpd/ ">https://pimylifeup.com/raspberry-pi-lighttpd/</a> to install the lighttpd web server software. However, when I tried to access the default http page from Safari using the internal IP address of the Raspberry pi, I got a ‘403 Forbidden’ message. After a little investigation I found that the /var/www/html folder (where lighttpd looks for http files) was owned by root and so I didn’t have access. Also, there was no default html file. So I used 'sudo _R ugo+rw /var/www/html' to change the read/write access to ‘anyone’ and uploaded a test html file, CSS and image. Then browsing to 192.168.1.21 worked.</p>
-          <p>I used <a href="https://myexternalip.com">https://myexternalip.com</a> to find the external IP address of our router. In addition to the IP it also referred to port 41480. My initial thought was that TalkTalk (the Internet Service Provider) use one IP address for many people. However, I later found that ignoring this port number worked.</p>
-          <p>Using the information provided at <a href=" https://pimylifeup.com/raspberry-pi-ufw/">https://pimylifeup.com/raspberry-pi-ufw/</a> I installed and set up ufw (uncomplicated fire wall) on the Raspberry pi. Some additional information was also found at <a href=" https://linuxiac.com/raspberry-pi-firewall/">https://linuxiac.com/raspberry-pi-firewall/</a>. I opened ports 80 (for http), 22 (for ssh) and 5900 (for vnc) in the firewall and then added a port forwarding rule to the router. So only port 9080 is open to the outside world and messages are forwarded to port 80 on the Raspberry pi. The ssh and vnc ports are only accessible from inside our private network.</p>
-          <p>Initially I set the router to forward messages on port 10080 to port 80 on the Raspberry pi. I found that this port is one of those blocked by many browsers and so changed the forwarding to incoming port 9080. I could then connect to the Raspberry pi web server by entering the external IP followed by :9080. So the basic infrastructure was working.</p>
-          <p><img class="r450" src="images/url.png">The next step was to register a domain name. This had to be a dynamic domain name in case TalkTalk change our IP address, which could happen if I restarted our router. The no-ip dynamic DNS service had been recommended, since they provide a minimal free facility. You need to 'refresh' the domain name every 30 days, but I probably won't keep it that long. no-ip check your external IP at a selected frequency (I chose 30 minutes) and link the domain name to it if it has changed. Of course, you are limited to the name you can choose, selecting from a number of root domains. I registered and chose <a href="http://aandd.ddns.net">http://aandd.ddns.net.</a> So as to avoid the need to add :9080 to the end of the domain name I used the ‘Port 80 Redirect’ facility to set the port to 9080. Under ‘Manage DNS Records’ I enabled ‘Mask URL’ so that it just shows aandd.ddns.net in the address bar. However, it does now place an advertisement at the bottom of the page! Safari says "Not Secure" in the address line since I'm using http rather than https.</p>
-          <p>I wondered how much load was placed on the Raspberry pi when a web page is requested. So I used the ‘top’ command via ssh to display the cpu load (it is refreshed every 3s). Calling a web page seems to add between 2 and 8 percent load (averaged over the three seconds), depending upon the number of images in the page. This was lower than I had expected.</p>
-          <p>So overall it was quite an easy process. I did have some hichups, for example when I enabled ufw before opening the ssh and vnc ports. That meant my only access to the pi was via port 80, so I couldn't change anything. By looking at the memory card using my Linux system I was able to see the file system, find the ufw configuration file and set ufw to disabled. So, in effect, the process described above is a sanitised version of what I actually did.</p>
-          <div style="clear: both; margin-left: 20px; font-size:70%; padding 50px">
-              <p>&copy; David James 2021   Last updated: 29th December 2021</p>
-          </div>
+
+        <div class="spiral">
+            <div class="page">
+                <h1>Projects</h1>
+                <p>Below are links to a number of my projects, some small and some not so small, some take a little time and then finish and some are ongoing, some require little financial expenditure and some require a lot. A common theme is that they all take me to 'places' I've not been before and so require research, either at the beginning or throughout. Another common theme is that they keep me out of mischief!</p>
+                <p>The first day of my retirement was Monday 1st July 2013, a month after my 65th birthday, and most of the projects below started after that date. The exception is the Radio Controlled Aircraft project. I joined the Sussex Radio Flying Club in May 2013 in anticipation of retirement.</p>
+                <p>Where possible I document my endeavours on web pages and these links take you to them.</p>
+                <h2><a href="radioControl/index.html">Radio Controlled Aircraft</a></h2>
+                <h2><a href="scratch-to-arduino/main.html">Scratch to Arduino</a></h2>
+                <h2><a href="tankSimulation/main.html">Scratch Tank Simulation</a></h2>
+                <h2><a href="scratch-to-arduino/windows/main.html">Scratch to Arduino for Windows</a></h2>
+                <h2><a href="temperatureSensor/main.html">Measuring and Plotting Temperature</a></h2>
+                <h2><a href="../TC4985/index.html">My MG TC</a></h2>
+                <h2><a href="radioControl/TigerMoth/index.html">Tiger Moth</a></h2>
+                <h2><a href="oscilloscope/main.html">DSO 138 Oscilloscope DIY Kit Build</a></h2>
+                <h2><a href="radioControl/glider/index.html">Glider</a></h2>
+                <h2><a href="../ROM/cover.html">Reminiscences of an Ordinary Man</a></h2>
+                <h2><a href="climateChange/CC.html">Climate Change</a></h2>
+                <h2><a href="../Notebook/index.html">Granddad's Notebook</a></h2>
+                <h2><a href="raspberryPi/index.html">Raspberry Pi</a></h2>
+                <h2><a href="piMicrobit/index.html">Raspberry Pi / BBC micro:bit</a></h2>
+                <h2><a href="../HowTo/index.html">How to ...</a></h2>
+
+                <div style="clear: both; margin-left: 20px; font-size:70%; padding 50px">
+                    <p>&copy; David James 2021   Last updated: 4th March 2021</p>
+                </div>
+            </div>
         </div>
-      </div>
-    </body>
+
+</body>
 </html>
