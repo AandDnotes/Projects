@@ -1,0 +1,75 @@
+body {
+    font-size: 12pt;
+    font-family: "Comic Sans MS", 'Marker Felt', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    color: black;
+    background-color: darkgrey;
+    line-height: 1.2em;
+    margin-left: 0px;
+    margin-right: 20px;
+    }
+h1 {
+    font-size: 250%;
+    color: maroon;
+    font-weight: bold;
+    margin-top: 1.7em;
+    margin-bottom: 1.1em;
+   }
+h2 {
+    font-size: 150%;
+    color: maroon;
+    font-weight: bold;
+    margin-top: 1.5em;
+    margin-bottom: 1.1em;
+   }
+div.spiral {
+    background-image: url("images/spiral.png");
+    background-repeat: repeat-y;
+    }
+div.page {
+    position: relative;
+    background-color: ivory;
+    margin-left: 70px;
+    padding: 1px 50px 50px 50px;
+    width: 1000px;
+    box-shadow: 10px 10px 5px grey;
+    }
+td {
+    padding: 10px;
+    vertical-align: text-top;
+   }
+img.r350 {
+   width: 350px;
+   float: right;
+   margin: 0px 0px 20px 20px;
+   box-shadow: 10px 10px 5px #888888;
+   }
+img.l350 {
+  width: 350px;
+  float: left;
+  margin: 0px 20px 20px 0px;
+  box-shadow: 10px 10px 5px #888888;
+  }
+img.r450 {
+  width: 450px;
+  float: right;
+  margin: 0px 0px 20px 20px;
+  box-shadow: 10px 10px 5px #888888;
+  }
+a:link {
+    color: blue;
+    text-decoration: none;
+    }
+a:visited {
+    color: green;
+    text-decoration: none;
+    }
+a:hover {
+    color: red;
+    text-decoration: none;
+    }
+a:active {
+    color: hotpink;
+    text-decoration: none;
+    }
