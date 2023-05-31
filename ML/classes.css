@@ -1,0 +1,185 @@
+/* Apply everywhere */
+
+* {
+  margin: 0rem;
+  padding: 0rem;
+  box-sizing: border-box; /* Padding and border don't make a box bigger */
+}
+/* define classes */
+
+.bodyclass {
+  width: 100%;
+  margin: 0rem auto;
+  background: var(--background);
+  min-height: 100vh; /* Make the content fill the page so the footer is at the bottom */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.pageclass {
+  background: var(--background);
+  background-image: url('images/spiral.png');
+  background-repeat: repeat-y;
+  min-width: 25rem; /* Don't let the content get too narrow */
+  max-width: 60rem; /*  Don't let the content get too wide */
+  padding: 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+  box-shadow: 8px 8px 10px 4px var(--shadow);
+}
+.headerclass {
+  background: var(--page);
+  color: var(--heading);
+  font: var(--title-font);
+  margin-left: var(--indent);
+  padding: 2rem 2rem 0rem 1rem;
+}
+.mainclass {
+  background: var(--page);
+  color: var(--onpage);
+  font: var(--main-font);
+  margin-left: var(--indent);
+  padding: 1rem 2rem 1rem 1rem;
+}
+.footerclass {
+  background: var(--page);
+  color: var(--onpage);
+  font: var(--footer-font);
+  margin-left: var(--indent);
+  padding: 2rem 2rem 2rem 1rem;
+}
+.sectionclass {
+  padding: 1rem 0 1rem 0;
+}
+.subheadingclass {
+  color: var(--heading);
+  font: var(--subheading-font);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.text-right {
+  color: var(--onpage);
+  font: var(--main-font);
+  float: right;
+}
+.photol-right { /* landscape 4x3 image to the right */
+  float: right;
+  /*border: 1px solid #D0D0D0; /* Add a solid border */
+  width: 24rem;
+  /*height: 18rem;*/
+  margin: 0 0 1rem 1rem;
+  box-shadow: 8px 8px 10px 4px var(--shadow); /* right and bottom shadow, blur, spread and colour */
+}
+.photol-left { /* landscape 4x3 image to the left */
+  float: left;
+  width: 24rem;
+  /*height: 18rem;*/
+  margin: 0 1rem 1rem 0;
+  box-shadow: 8px 8px 10px 4px var(--shadow); /* right and bottom shadow, blur, spread and colour */
+}
+.photop-right { /* portrait 3x4 image to the right */
+  float: right;
+  width: 18rem;
+  height: 24rem;
+  box-shadow: 8px 8px 10px 4px var(--shadow); /* right and bottom shadow, blur, spread and colour */
+}
+.photop-left { /* portrait 3x4 image to the left */
+  float: left;
+  width: 18rem;
+  height: 24rem;
+  box-shadow: 8px 8px 10px 4px var(--shadow); /* right and bottom shadow, blur, spread and colour */
+}
+.image-left {
+  float:left;
+  width: 12rem;
+  margin: 1rem 1rem 1rem 0;
+}
+.image-right {
+  float:right;
+  width: 20rem;
+  margin: 1rem 0 1rem 1rem;
+  box-shadow: 8px 8px 10px 4px var(--shadow); /* right and bottom shadow, blur, spread and colour */
+}
+.image-right-s {
+  float:right;
+  width: 15rem;
+  margin: 1rem 0 1rem 1rem;
+  box-shadow: 8px 8px 10px 4px var(--shadow); /* right and bottom shadow, blur, spread and colour */
+}
+.image-left-nm {
+  float:left;
+  width: 12rem;
+  margin: 0 1rem 0 0;
+}
+.image-left-nms {
+  float:left;
+  width: 10rem;
+  margin: 0 1rem 0 0;
+}
+.grid-container {
+  display: grid;
+  column-gap: 20px;
+  grid-template-columns: 12rem auto;
+}
+.item22 {
+  grid-column: 2;
+  grid-row: 2 / span 3;
+}
+.item31 {
+  grid-column: 1;
+  grid-row: 3;
+}
+.item41 {
+  grid-column: 1;
+  grid-row: 4;
+}
+.item42 {
+  grid-column: 2;
+  grid-row: 4 / span 5;
+}
+.item51 {
+  grid-column: 1;
+  grid-row: 5;
+}
+.item61 {
+  grid-column: 1;
+  grid-row: 6;
+}
+.item62 {
+  grid-column: 2;
+  grid-row: 6;
+}
+.item71 {
+  grid-column: 1;
+  grid-row: 7;
+}
+.item72 {
+  grid-column: 2;
+  grid-row: 7;
+}
+.list {
+  margin-left: 2rem;
+}
+.item212 {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+/* styles for links - apply globally, so no need for a class */
+a:link {
+    color: blue;
+    text-decoration: none;
+    }
+a:visited {
+    color: green;
+    text-decoration: none;
+    }
+a:hover {
+    color: red;
+    text-decoration: none;
+    }
+a:active {
+    color: hotpink;
+    text-decoration: none;
+    }

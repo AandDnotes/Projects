@@ -1,0 +1,17 @@
+/* Set global CSS variables */
+:root {
+  /* colours */
+  --background: lightgrey;
+  --page: ivory; /* used for the header, main and footer regions */
+  --onpage: #000000; /* used in header, main and footer */
+  --heading: maroon; /* used for all headings */
+  --shadow: grey; /* used for all shadows */
+  /* fonts */
+  --header-font:3rem "Comic Sans MS", sans-serif;
+  --main-font:1rem "Comic Sans MS", sans-serif;
+  --footer-font:0.75rem "Comic Sans MS", sans-serif;
+  --title-font:2rem "Comic Sans MS", sans-serif;
+  --subheading-font: normal bold 1.5rem "Comic Sans MS", sans-serif;
+  /*  */
+  --indent: 73px;
+}
