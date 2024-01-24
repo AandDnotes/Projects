@@ -52,7 +52,7 @@ div.sticky {
   }
 div.state {
   position:absolute;
-  top:550px;
+  top:600px;
   width: 310px;
   right: 0px;
   z-index: 0;
