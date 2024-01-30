@@ -56,9 +56,6 @@
   padding: 1rem 2rem 2rem 2rem;
   box-shadow: 8px 8px 10px 4px var(--shadow);
 }
-hr {
-  border-color: var(--heading);
-}
 .sectionclass {
   clear: both;
 }
@@ -67,9 +64,6 @@ hr {
   font: var(--subheading-font);
   padding-top: 1.5rem;
   padding-bottom: 0.5rem;
-}
-ul {
-  padding-left: 3rem;
 }
 .text-right {
   color: var(--onpage);
@@ -198,3 +192,16 @@ a:active {
     color: hotpink;
     text-decoration: none;
     }
+/* other styles */
+hr {
+  border-color: var(--heading);
+}
+ul {
+  padding-left: 3rem;
+}
+video {
+  max-width: 100%;
+  height: auto;
+  float: right;
+  box-shadow: 8px 8px 10px 4px var(--shadow); /* right and bottom shadow, blur, spread and colour */
+}
