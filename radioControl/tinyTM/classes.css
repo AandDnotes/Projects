@@ -203,5 +203,6 @@ video {
   max-width: 100%;
   height: auto;
   float: right;
+  margin: 1rem 0 1rem 1rem;
   box-shadow: 8px 8px 10px 4px var(--shadow); /* right and bottom shadow, blur, spread and colour */
 }
