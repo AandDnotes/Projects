@@ -37,24 +37,29 @@
   font: var(--title-font);
   /*margin-left: var(--indent);*/
   padding: 2rem 2rem 0rem 2rem;
-  box-shadow: 8px 8px 10px 4px var(--shadow);
+  /*box-shadow: 8px 8px 10px 4px var(--shadow);*/
+  box-shadow: 10px 10px 5px var(--shadow);
 }
 .mainclass {
   background: var(--page);
+  border-style: none;
   color: var(--onpage);
   font: var(--main-font);
   /*margin-left: var(--indent);*/
   padding: 1rem 2rem 1rem 2rem;
-  box-shadow: 8px 8px 10px 4px var(--shadow);
+  /*box-shadow: 8px 8px 10px 4px var(--shadow);*/
+  box-shadow: 10px 10px 5px var(--shadow);
 }
 .footerclass {
   background: var(--page);
   border-radius: 0px 0px 25px 25px;
+  border-style: none;
   color: var(--onpage);
   font: var(--footer-font);
   /*margin-left: var(--indent);*/
   padding: 1rem 2rem 2rem 2rem;
-  box-shadow: 8px 8px 10px 4px var(--shadow);
+  /*box-shadow: 8px 8px 10px 4px var(--shadow);*/
+  box-shadow: 10px 10px 5px var(--shadow);
 }
 .sectionclass {
   clear: both;
